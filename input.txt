@@ -1,14 +1,21 @@
 DADDU R5, R0, R30
-DADDU, DADDIU, DMULT, DMULTU
+DADDU, DADDIU, DMULT, DMULTU, DMULTA, DMULTB
 DADDIU $F2, $F30
 $F2, $F30 $F2, $F30 $F2, $F30
+$F0, $F30 $F2, $F31 $F2, $F32
+F2, F30 F2, F30 F2, F30
+F0, F30 F2, F31 F2, F32
 INT X = 5
 $F2 INT DADDIU
 
 R0
-R1
-R42
 R31
+R42
+R32
+$0
+$31
+$42
+$32
 $R1
 R5
 $R25
@@ -24,3 +31,38 @@ $R2
 
 3[0-1]|[1-2][0-9]|[0-9]
 ([0-9]|[0-2][0-9]|3[01])
+
+.split("[\\s,]");
+
+GPR: [R|$](3[0-1]|[1-2][0-9]|[0-9])
+FPR: [$]?F(3[0-1]|[1-2][0-9]|[0-9])
+LEGEND: 
+A [0-9]
+B [1-2]
+C [0-1]
+
+
+KEYWORD: D((ADD)(I?U)|(MULTU?))
+
+
+
+if(input.chartAt(i)=='$')
+{
+	if(input.chartAt(i)=='F')
+}
+
+else if(input.chartAt(i)=='R')
+{
+
+}
+else if(input.chartAt(i)=='F')
+{
+
+}
+else if(input.chartAt(i)=='D')
+{
+
+}
+else
+print error
+

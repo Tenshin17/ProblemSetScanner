@@ -13,7 +13,7 @@ public class scanner {
         System.out.println("DONE");
     }    
 
-
+    //read file
     public static void filereader()throws Exception
     {
         String thisLine = null;
@@ -44,24 +44,162 @@ public class scanner {
          }
     }
 
+    //check what type of tokens
     public static void tokenrecognizer(String s)
-    {
-    
-        int j=0;
-        if(s.charAt(j)=='R')
+    {    
+        if(isGPR(s))
             sTokens.add("GPR ");
-        else if(s.charAt(j)=='$')
-            sTokens.add("FPR ");   
-        else if(s.charAt(j)=='D')
+        else if(isFPR(s))
+            sTokens.add("FPR ");
+        else if(isKeyword(s))
             sTokens.add("KEYWORD ");
         else
-            sTokens.add("Error ");      
+            sTokens.add("ERROR ");
 
     }
+   
+    //check if pattern is a GPR
+    // Input: String that contains the pattern that would be checked
+    // return: True if it is a GPR and False if not
+    public static boolean isGPR(String s)
+    {
+        int index=0;
+        if(s.charAt(index)=='$')
+        {
+            return isNumber(s.substring(1,s.length()));
+        }
+        else if(s.charAt(index)=='R')
+        {
+            return isNumber(s.substring(1,s.length()));
+        }
+        //if String did not satisfy any of the above conditions
+        return false;
+    }
+    
+    //check if pattern is a FPR
+    // Input: String that contains the pattern that would be checked
+    // return: True if it is a FPR and False if not
+    public static boolean isFPR(String s)
+    {
+        int index=0;
+        if(s.charAt(index)=='$')
+        {
+            index++;
+            if(s.charAt(index)=='F')
+            {
+                return isNumber(s.substring(2,s.length()));
+            }
+        }
+        else if(s.charAt(index)=='F')
+        {
+            return isNumber(s.substring(1,s.length()));
+        }
+        //if String did not satisfy any of the above conditions
+        return false;
+    }
+    
+    //check if String is between 0-31
+    // Input: String that contains the number that would be checked
+    // return: True if it is between 0-31 and False if not
+    public static boolean isNumber(String s)
+    {
+        int index=0;
+        if(s.length()==1)
+        {
+            if(s.charAt(index)>='0'  || s.charAt(index)<='9')
+            {
+                return true;
+            }
+        }
+        else if(s.length()==2)
+        {
+            if(s.charAt(index)=='3')
+            {
+                index++;
+                if(s.charAt(index)>='0' && s.charAt(index)<='1')
+                {
+                    return true;
+                }
+            }
+            else if(s.charAt(index)>='1' && s.charAt(index)<='2')
+            {
+                index++;
+                if(s.charAt(index)>='0'  || s.charAt(index)<='9')
+                {
+                    return true;
+                }
+            }
+        }
+        //if String did not satisfy any of the above conditions
+        return false;
+    }
+
+    //check if pattern is a KEYWORD
+    // Input: String that contains the pattern that would be checked
+    // return: True if it is a KEYWORD and False if not
+    public static boolean isKeyword(String s)
+    {
+        int index=0;
+        if(s.charAt(index)=='D')
+        {
+            index++;
+            if(s.charAt(index)=='A')
+            {
+                index++;
+                if(s.charAt(index)=='D')
+                {
+                    index++;
+                    if(s.charAt(index)=='D')
+                    {
+                        index++;
+                        if(s.charAt(index)=='U')
+                        {
+                            return true;
+                        }
+                        else if(s.charAt(index)=='I')
+                        {
+                            index++;
+                            if(s.charAt(index)=='U')
+                            {
+                                return true;
+                            }
+                        }
+                        
+                    }
+                }
+
+            }
+            else if(s.charAt(index)=='M')
+            {
+                index++;
+                if(s.charAt(index)=='U')
+                {
+                    index++;
+                    if(s.charAt(index)=='L')
+                    {
+                        index++;
+                        if(s.charAt(index)=='T')
+                        {
+                            index++;
+                            if(s.length()==6 && s.charAt(index)!='U')
+                            {
+                                return false;
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        //if String did not satisfy any of the above conditions
+        return false;
+    }
+
+    //write file 
     public static void filewriter()
     {
         try {
-            FileWriter writer = new FileWriter("Output1.txt", true);
+            FileWriter writer = new FileWriter("Output3.txt", true);
             for(int i=0;i<sTokens.size();i++)
             {
                writer.write(sTokens.get(i));
@@ -70,13 +208,8 @@ public class scanner {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    
+    }   
 }    
-
-
-
 
 /*Sources:
 Write File:https://www.codejava.net/java-se/file-io/how-to-read-and-write-text-file-in-java
