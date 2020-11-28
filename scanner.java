@@ -247,4 +247,5 @@ public class scanner {
 /*Sources:
 Write File:https://www.codejava.net/java-se/file-io/how-to-read-and-write-text-file-in-java
 Read File: https://www.tutorialspoint.com/java/io/bufferedreader_readline.htm
+Numeric string: https://mkyong.com/java/java-how-to-check-if-a-string-is-numeric/
 */
