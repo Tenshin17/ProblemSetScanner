@@ -9,13 +9,13 @@ public class test {
     public static void main(String args[])throws Exception{
 
      
-          System.out.println(isNumber("32"));
+        System.out.println(isNumber("F"));
+        System.out.println(Character.isDigit('F'));
   
-          System.out.println(isNumber("29"));
 
     }   
 
-    public static boolean isNumber(String s) 
+    public static boolean isNumber(String s)
     {
         int index=0;
         if(s.length()==1)
@@ -27,26 +27,24 @@ public class test {
         }
         else if(s.length()==2)
         {
-        if(s.charAt(index)=='3')
-        {
-            index++;
-            if(s.charAt(index)>='0' && s.charAt(index)<='1')
+            if(s.charAt(index)=='3')
             {
-                return true;
+                index++;
+                if(s.charAt(index)>='0' && s.charAt(index)<='1')
+                {
+                    return true;
+                }
+            }
+            else if(s.charAt(index)>='1' && s.charAt(index)<='2')
+            {
+                index++;
+                if(s.charAt(index)>='0'  || s.charAt(index)<='9')
+                {
+                    return true;
+                }
             }
         }
-        else if(s.charAt(index)>='1' && s.charAt(index)<='2')
-        {
-            index++;
-            if(s.charAt(index)>='0'  || s.charAt(index)<='9')
-            {
-                return true;
-            }
-        }
-        }
-
-
-
+        //if String did not satisfy any of the above conditions
         return false;
     }
     

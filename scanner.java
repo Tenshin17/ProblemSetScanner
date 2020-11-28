@@ -66,11 +66,18 @@ public class scanner {
         int index=0;
         if(s.charAt(index)=='$')
         {
-            return isNumber(s.substring(1,s.length()));
+            if(s.length()>1)
+            {
+                return isNumber(s.substring(1,s.length()));
+            }
         }
         else if(s.charAt(index)=='R')
         {
-            return isNumber(s.substring(1,s.length()));
+            if(s.length()>1)
+            {
+                return isNumber(s.substring(1,s.length()));
+            }
+            
         }
         //if String did not satisfy any of the above conditions
         return false;
@@ -82,17 +89,20 @@ public class scanner {
     public static boolean isFPR(String s)
     {
         int index=0;
-        if(s.charAt(index)=='$')
+        if(s.charAt(index)=='$' && s.length()>2)
         {
             index++;
             if(s.charAt(index)=='F')
             {
-                return isNumber(s.substring(2,s.length()));
+               return isNumber(s.substring(2,s.length()));   
             }
         }
         else if(s.charAt(index)=='F')
         {
-            return isNumber(s.substring(1,s.length()));
+            if(s.length()>1)
+            {
+                return isNumber(s.substring(1,s.length()));
+            }
         }
         //if String did not satisfy any of the above conditions
         return false;
@@ -103,30 +113,33 @@ public class scanner {
     // return: True if it is between 0-31 and False if not
     public static boolean isNumber(String s)
     {
-        int index=0;
-        if(s.length()==1)
+        if(isNumeric(s))
         {
-            if(s.charAt(index)>='0'  || s.charAt(index)<='9')
+            int index=0;
+            if(s.length()==1)
             {
-                return true;
-            }
-        }
-        else if(s.length()==2)
-        {
-            if(s.charAt(index)=='3')
-            {
-                index++;
-                if(s.charAt(index)>='0' && s.charAt(index)<='1')
+                if(s.charAt(index)>='0'  || s.charAt(index)<='9')
                 {
                     return true;
                 }
             }
-            else if(s.charAt(index)>='1' && s.charAt(index)<='2')
+            else if(s.length()==2)
             {
-                index++;
-                if(s.charAt(index)>='0'  || s.charAt(index)<='9')
+                if(s.charAt(index)=='3')
                 {
-                    return true;
+                    index++;
+                    if(s.charAt(index)>='0' && s.charAt(index)<='1')
+                    {
+                        return true;
+                    }
+                }
+                else if(s.charAt(index)>='1' && s.charAt(index)<='2')
+                {
+                    index++;
+                    if(s.charAt(index)>='0'  || s.charAt(index)<='9')
+                    {
+                        return true;
+                    }
                 }
             }
         }
@@ -134,13 +147,25 @@ public class scanner {
         return false;
     }
 
+    //check if it a string is numeric first
+    //input string
+    //return true if numeric else return false
+    public static boolean isNumeric(String s)
+    {
+         for (char c : s.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
     //check if pattern is a KEYWORD
     // Input: String that contains the pattern that would be checked
     // return: True if it is a KEYWORD and False if not
     public static boolean isKeyword(String s)
     {
         int index=0;
-        if(s.charAt(index)=='D')
+        if(s.charAt(index)=='D' && s.length()>=5)
         {
             index++;
             if(s.charAt(index)=='A')
@@ -154,9 +179,13 @@ public class scanner {
                         index++;
                         if(s.charAt(index)=='U')
                         {
+                            if(s.length()>5)
+                            {
+                                return false;
+                            }
                             return true;
                         }
-                        else if(s.charAt(index)=='I')
+                        else if(s.length()==6 && s.charAt(index)=='I')
                         {
                             index++;
                             if(s.charAt(index)=='U')
@@ -181,7 +210,11 @@ public class scanner {
                         if(s.charAt(index)=='T')
                         {
                             index++;
-                            if(s.length()==6 && s.charAt(index)!='U')
+                            if(s.length()==6 && s.charAt(index)=='U')
+                            {
+                                return true;
+                            }
+                            else if(s.length()>=6)
                             {
                                 return false;
                             }
