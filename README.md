@@ -6,5 +6,5 @@
   Instructions:
   1. Open scanner.java
   2. Type input filename at line 22
-  3. Type output filename at line 202
+  3. Type output filename at line 235
   4. Press run.
