@@ -232,7 +232,7 @@ public class scanner {
     public static void filewriter()
     {
         try {
-            FileWriter writer = new FileWriter("Output3.txt", true);
+            FileWriter writer = new FileWriter("Output.txt", true);
             for(int i=0;i<sTokens.size();i++)
             {
                writer.write(sTokens.get(i));
